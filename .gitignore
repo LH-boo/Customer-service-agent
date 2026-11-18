@@ -1,0 +1,41 @@
+# ---------- 敏感配置 ----------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# ---------- 数据与运行时 ----------
+data/*.db
+data/*.db-*
+data/*.sqlite*
+logs/
+*.log
+run/
+.pid
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------- 前端 ----------
+node_modules/
+dist/
+.vite/
+
+# ---------- IDE / 系统 ----------
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>仁心医院 · 患者服务中心</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- 登录 -->
+  <div class="login-layer" id="loginLayer">
+    <div class="login-card">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="34" height="34"><rect x="4" y="4" width="40" height="40" rx="12" fill="currentColor" opacity="0.12"/><path d="M24 12v24M12 24h24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+        </span>
+        <div>
+          <h1>仁心医院</h1>
+          <p>患者服务中心 · 智能客服</p>
+        </div>
+      </div>
+      <h2>欢迎回来</h2>
+      <p class="login-sub">请使用患者编号与预留手机号登录，客服仅能查询您本人授权范围内的信息。</p>
+      <form id="loginForm" autocomplete="off">
+        <label>患者编号<input id="patientNo" name="patient_no" placeholder="如 P2026001" required /></label>
+        <label>手机号<input id="phone" name="phone" placeholder="如 13800000001" inputmode="numeric" required /></label>
+        <div class="login-error" id="loginError"></div>
+        <button type="submit" class="btn-primary" id="loginBtn">登录并开始咨询</button>
+      </form>
+      <div class="demo-hint">
+        <span>演示账号</span>
+        <code>P2026001 / 13800000001</code>
+        <code>P2026002 / 13800000002</code>
+      </div>
+    </div>
+    <p class="login-foot">本系统仅提供就医指引与服务受理，不提供诊断、处方或治疗方案。急危重症请立即拨打 120。</p>
+  </div>
+
+  <!-- 主应用 -->
+  <div class="app hidden" id="app">
+    <aside class="sidebar">
+      <div class="brand small">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="28" height="28"><rect x="4" y="4" width="40" height="40" rx="12" fill="currentColor" opacity="0.12"/><path d="M24 12v24M12 24h24" stroke="currentColor" stroke-width="5" stroke-linecap="round"/></svg>
+        </span>
+        <div><h1>仁心医院</h1><p>患者服务中心</p></div>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="chat">
+          <svg viewBox="0 0 24 24" width="19" height="19"><path d="M4 5h16v11H9l-5 4V5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9h8M8 12h5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          在线客服
+        </button>
+        <button class="nav-item" data-view="tickets">
+          <svg viewBox="0 0 24 24" width="19" height="19"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 8h6M9 12h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          我的工单
+          <span class="nav-badge hidden" id="ticketBadge">0</span>
+        </button>
+      </nav>
+      <div class="sidebar-note">
+        <p class="note-title">服务范围</p>
+        <p>预约挂号 · 就诊指南 · 医保政策 · 检查报告 · 投诉建议</p>
+        <p class="note-warn">不提供诊断与处方，急症请拨打 120</p>
+      </div>
+      <div class="user-card">
+        <div class="avatar" id="avatar">患</div>
+        <div class="user-info">
+          <strong id="userName">-</strong>
+          <span id="userNo">-</span>
+        </div>
+        <button class="icon-btn" id="logoutBtn" title="退出登录">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path d="M15 4h3a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-3M10 8l-4 4 4 4M6 12h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- 聊天 -->
+      <section class="view active" id="chatView">
+        <header class="chat-header">
+          <div>
+            <h2>智能客服</h2>
+            <p><span class="dot"></span> 在线 · 通常即时响应</p>
+          </div>
+          <button class="ghost-btn" id="newChatBtn">新会话</button>
+        </header>
+        <div class="messages" id="messages">
+          <div class="msg assistant">
+            <div class="avatar-sm">仁</div>
+            <div class="bubble">
+              <p>您好，我是仁心医院患者服务中心的智能客服。我可以帮您：</p>
+              <ul>
+                <li>查询预约、检查报告状态</li>
+                <li>解答就诊流程、医保报销政策</li>
+                <li>受理投诉建议并创建服务工单</li>
+              </ul>
+              <p class="muted">如需取消预约，我会先与您核实并二次确认后再操作。</p>
+            </div>
+          </div>
+        </div>
+        <div class="quick-row" id="quickRow">
+          <button data-q="第一次去医院需要准备什么材料？">首次就诊准备</button>
+          <button data-q="我的检查报告什么时候出来？">报告进度</button>
+          <button data-q="我预约的明天下午的号怎么取消？">取消预约</button>
+          <button data-q="医生临时调整了出诊时间，没有提前通知我">投诉建议</button>
+          <button data-q="门诊检查可以报销吗？">医保报销</button>
+        </div>
+        <form class="composer" id="chatForm">
+          <textarea id="chatInput" rows="1" placeholder="描述您的问题，例如：明天下午的预约怎么取消？" maxlength="2000"></textarea>
+          <button type="submit" class="send-btn" id="sendBtn" title="发送">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M4 12 20 4l-4 16-4-6-8-2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </button>
+        </form>
+        <p class="disclaimer">智能客服回复仅作就医指引，不构成诊断或治疗建议。急危重症请立即拨打 120。</p>
+      </section>
+
+      <!-- 工单 -->
+      <section class="view" id="ticketView">
+        <header class="page-header">
+          <div>
+            <h2>我的工单</h2>
+            <p>查看问题受理、部门流转与处理进度</p>
+          </div>
+          <button class="ghost-btn" id="refreshTickets">刷新</button>
+        </header>
+        <div class="ticket-layout">
+          <div class="ticket-list" id="ticketList">
+            <div class="empty-state">加载中…</div>
+          </div>
+          <aside class="ticket-detail" id="ticketDetail">
+            <div class="empty-state">选择左侧工单查看详情</div>
+          </aside>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
