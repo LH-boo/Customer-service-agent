@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>仁心医院 · 患者服务中心</title>
+  <meta http-equiv="refresh" content="0; url=app/static/index.html" />
+  <style>
+    :root {
+      --brand: #0f766e;
+      --ink: #0e2436;
+      --muted: #718699;
+      --bg: #f3f7fa;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(15, 118, 110, 0.14), transparent 42%),
+        radial-gradient(circle at 85% 80%, rgba(37, 99, 235, 0.12), transparent 45%),
+        linear-gradient(160deg, #f8fbfd 0%, #edf4f8 100%);
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+      font-size: 14px;
+    }
+    .splash {
+      text-align: center;
+      padding: 28px 32px;
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(15, 45, 70, 0.08);
+    }
+    .splash h1 { margin: 0 0 6px; font-size: 18px; color: var(--brand); }
+    .splash p { margin: 0; color: var(--muted); }
+    .splash a { color: var(--brand); }
+  </style>
+</head>
+<body>
+  <div class="splash">
+    <h1>仁心医院 · 患者服务中心</h1>
+    <p>正在进入智能客服系统…</p>
+    <p><a href="app/static/index.html">如果没有自动跳转，请点击这里</a></p>
+  </div>
+  <script>location.replace("app/static/index.html");</script>
+</body>
+</html>
